@@ -26,14 +26,14 @@ public class TitolareController {
 	private TitolareRepository titolareRepo;
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Long> getTitolare(@PathVariable long id) {
-		
+	public ResponseEntity<?> getTitolare(@PathVariable long id) {
 		if(titolareRepo.existsById(id)) {
-			Optional<Titolare> tit = titolareRepo.findById(id);
+			Titolare tit = titolareRepo.findById(id).get();
 		return new ResponseEntity(tit, HttpStatus.OK);
 		
 		} else { 
-			return new ResponseEntity("Titolare n." + id + " non trovato", HttpStatus.NOT_FOUND);
+			return new ResponseEntity("Titolare n." + id + " non trovato", 
+					HttpStatus.NOT_FOUND);
 			
 		}
 	}

@@ -14,10 +14,12 @@ import javax.persistence.OneToMany;
 
 import com.acme.ereditarieta.persone.titolari.Titolare;
 import com.acme.ereditarieta.tesserini.TesserinoAbstract;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 
 @Data
@@ -34,9 +36,13 @@ public abstract class LicenzaAbstract implements Licenza {
 	@Column(length = 30, nullable = false)
 	private String numeroLicenza;
 	
+	@ToString.Exclude
+	@JsonIgnoreProperties({"licenze"})
 	@ManyToOne
 	private Titolare titolare;
 	
+	@ToString.Exclude
+	@JsonIgnoreProperties({"licenza"})
 	@OneToMany(mappedBy = "licenza")
 	private List<TesserinoAbstract> tesserini;
 

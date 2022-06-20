@@ -11,10 +11,12 @@ import javax.persistence.OneToMany;
 
 import com.acme.ereditarieta.persone.Persona;
 import com.acme.ereditarieta.persone.titolari.Titolare;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 
 @Data
@@ -31,8 +33,9 @@ public class Citta {
 	private String citta;
 	@Column(length = 2, nullable = false)
 	private String provincia;
-
-
+	
+	@ToString.Exclude
+	@JsonIgnoreProperties({"citta"})
 	@OneToMany(mappedBy = "citta")
 	private List<Titolare> titolari;
 }

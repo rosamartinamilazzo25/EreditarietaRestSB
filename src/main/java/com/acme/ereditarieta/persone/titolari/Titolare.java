@@ -10,11 +10,13 @@ import com.acme.ereditarieta.citta.Citta;
 import com.acme.ereditarieta.licenze.Licenza;
 import com.acme.ereditarieta.licenze.LicenzaAbstract;
 import com.acme.ereditarieta.persone.PersonaAbstract;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -22,10 +24,13 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Titolare extends PersonaAbstract {
 	
-	
+	@ToString.Exclude
+	@JsonIgnoreProperties({"titolari"})
 	@ManyToOne
 	private Citta citta;
 	
+	@ToString.Exclude
+	@JsonIgnoreProperties({"titolare"})
 	@OneToMany(mappedBy = "titolare")
 	private List<LicenzaAbstract> licenze;
 

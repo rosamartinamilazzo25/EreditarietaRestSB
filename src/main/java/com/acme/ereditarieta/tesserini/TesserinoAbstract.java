@@ -11,10 +11,13 @@ import javax.persistence.ManyToOne;
 
 import com.acme.ereditarieta.licenze.Licenza;
 import com.acme.ereditarieta.licenze.LicenzaAbstract;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -30,6 +33,8 @@ public abstract class TesserinoAbstract implements Tesserino {
 	
 	private int annoScadenza;
 	
+	@ToString.Exclude
+	@JsonIgnoreProperties({"tesserini"})
 	@ManyToOne
 	private LicenzaAbstract licenza;
 }
