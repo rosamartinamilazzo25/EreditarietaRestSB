@@ -21,6 +21,10 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true) //aggiunge la stampa degli attributi della classe papà nelle sottoclassi
+
 @Entity
 public class Titolare extends PersonaAbstract {
 	
