@@ -15,9 +15,10 @@ import com.acme.ereditarieta.licenze.pesca.LicenzaPesca;
 import com.acme.ereditarieta.licenze.pesca.LicenzaPescaRepository;
 import com.acme.ereditarieta.persone.titolari.Titolare;
 import com.acme.ereditarieta.persone.titolari.TitolareRepository;
-import com.acme.ereditarieta.tesserini.TesserinoRepository;
 import com.acme.ereditarieta.tesserini.caccia.TesserinoCaccia;
+import com.acme.ereditarieta.tesserini.caccia.TesserinoCacciaRepository;
 import com.acme.ereditarieta.tesserini.pesca.TesserinoPesca;
+import com.acme.ereditarieta.tesserini.pesca.TesserinoPescaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,7 +34,10 @@ public class PrototypeRunner implements ApplicationRunner {
 	@Autowired
 	LicenzaPescaRepository licenzaPescaRepo;
 	@Autowired
-	TesserinoRepository tesserinoRepo;
+	TesserinoCacciaRepository tesserinoCacciaRepo;
+	@Autowired
+	TesserinoPescaRepository tesserinoPescaRepo;
+	
 	
 	@Autowired
 	@Qualifier("CittaFake")
@@ -86,12 +90,12 @@ public class PrototypeRunner implements ApplicationRunner {
 			
 			TesserinoCaccia tc= tesserinoCacciaProvider.getObject();
 			tc.setLicenza(lc);
-			tesserinoRepo.save(tc);
+			tesserinoCacciaRepo.save(tc);
 			System.out.println(tc);
 			
 			TesserinoPesca tp= tesserinoPescaProvider.getObject();
 			tp.setLicenza(lp);
-			tesserinoRepo.save(tp);
+			tesserinoPescaRepo.save(tp);
 			System.out.println(tp);
 			
 		

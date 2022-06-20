@@ -1,4 +1,4 @@
-package com.acme.ereditarieta.tesserini;
+package com.acme.ereditarieta.tesserini.caccia;
 
 import java.util.List;
 
@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.acme.ereditarieta.tesserini.Tesserino;
+import com.acme.ereditarieta.tesserini.TesserinoAbstract;
+
 @RestController
-@RequestMapping("/tesserini")
-public class TesserinoController {
+@RequestMapping("/tesseriniCaccia")
+public class TesserinoCacciaController {
 	@Autowired
-	TesserinoRepository tesserinoRepository;
+	TesserinoCacciaRepository tesserinoRepository;
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getTesserino(@PathVariable long id) {
@@ -33,25 +36,26 @@ public class TesserinoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<String> insertTesserino(@RequestBody Tesserino t) {
+	public ResponseEntity<String> insertTesserino(@RequestBody TesserinoCaccia t) {
 		if(tesserinoRepository.existsById(t.getId())) {
-			return new ResponseEntity<String>("Tesserino gia' esistente.", HttpStatus.NOT_ACCEPTABLE);
+			return new ResponseEntity<String>("Tesserino gia' esistente.", 
+					HttpStatus.NOT_ACCEPTABLE);
 		} else {
-			tesserinoRepository.save((TesserinoAbstract)t);
+			tesserinoRepository.save(t);
 			
 			return ResponseEntity.ok("Tesserino inserito.");
 		}
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateTesserino(@RequestBody Tesserino t, 
+	public ResponseEntity<?> updateTesserino(@RequestBody TesserinoCaccia t, 
 			@PathVariable long id) {
 		if (tesserinoRepository.existsById(id)) {
 			Tesserino tesserinoInDB = tesserinoRepository.findById(id).get();	
 			BeanUtils.copyProperties(t, tesserinoInDB);
-			tesserinoRepository.save((TesserinoAbstract)tesserinoInDB);
+			tesserinoRepository.save((TesserinoCaccia)tesserinoInDB);
 			
-			return new ResponseEntity("Tesserino di id " + id + "modificato.", 
+			return new ResponseEntity("Tesserino di id " + id + " modificato.", 
 					HttpStatus.OK);
 		} else {
 			return new ResponseEntity("Tesserino di id " + id + " non trovato.", 
@@ -66,16 +70,16 @@ public class TesserinoController {
 		if(tesserinoRepository.existsById(id)) {
 			tesserinoRepository.deleteById(id);
 			
-			return new ResponseEntity<String>("Tesserino di id " + id + "eliminato", 
+			return new ResponseEntity<String>("Tesserino di id " + id + " eliminato.", 
 					HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String> ("Tesserino di id " + id + "non trovato", 
+			return new ResponseEntity<String> ("Tesserino di id " + id + " non trovato.", 
 					HttpStatus.NOT_FOUND);
 		}
 	}
 	
 	@GetMapping
-	public List<TesserinoAbstract> getTuttiTesserini() {
-		return (List<TesserinoAbstract>) tesserinoRepository.findAll();
+	public List<TesserinoCaccia> getTuttiTesserini() {
+		return (List<TesserinoCaccia>) tesserinoRepository.findAll();
 	}
 }
