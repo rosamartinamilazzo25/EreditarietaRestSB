@@ -59,7 +59,7 @@ public class LicenzaPescaController {
 			return new ResponseEntity<String>("Licenza " + id + " non trovata", HttpStatus.NOT_FOUND);
 		}
 	}
- @DeleteMapping("{/id}")
+ @DeleteMapping("/{id}")
  public ResponseEntity<String> deleteLicenza (@PathVariable  long id) {
 	 if(licenzaPescaRepo.existsById(id)) {
 		 licenzaPescaRepo.deleteById(id);

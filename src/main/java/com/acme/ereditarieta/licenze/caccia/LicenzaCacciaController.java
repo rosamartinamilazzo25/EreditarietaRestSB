@@ -66,7 +66,7 @@ public ResponseEntity <List <LicenzaCaccia>> getTutteLeLicenzeCaccia () {
 	return ResponseEntity.ok((List<LicenzaCaccia>) licenzaCacciaRepo.findAll());
 }
 
-@DeleteMapping("{/id}")
+@DeleteMapping("/{id}")
 public ResponseEntity<String> deleteLicenza (@PathVariable  long id) {
 	 if(licenzaCacciaRepo.existsById(id)) {
 		 licenzaCacciaRepo.deleteById(id);
